@@ -100,6 +100,16 @@ function action(matcher, action) {
     }
 }
 
+function alternative(...matchers) {
+    return (text, index) => {
+        for (let i = 0; i < matchers.length; ++i) {
+            let match = matchers[i](text, index);
+            if (match) return match;
+        }
+    };
+}
+
+token(action(some(stringToken(" ")), t => { return {whitespace: true, length: t.length}; }));
 token(action(then(optional(stringToken("-")), some(charClass(isDigit))), parseInt));
 token("=");
 token("-");
@@ -169,6 +179,9 @@ function stringifyToken(token) {
     }
     else if (token === "\n") {
         return "{newline}";
+    }
+    else if (token.whitespace) {
+        return "{space: " + token.length + "}";
     }
     return token;
 }

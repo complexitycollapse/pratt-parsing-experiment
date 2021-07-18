@@ -1,4 +1,3 @@
-var symbols = {};
 var tokens = [];
 var eof = { eof: true }
 let sof = { sof: true }
@@ -101,12 +100,12 @@ function action(matcher, action) {
 }
 
 function alternative(...matchers) {
-    return (text, index) => {
-        for (let i = 0; i < matchers.length; ++i) {
-            let match = matchers[i](text, index);
-            if (match) return match;
+    return function alt(text, index, mi) {
+        mi = mi ?? 0;
+        if (matchers[mi]) {
+            return matchers[mi](text, index) ?? alt(text, index, mi + 1);
         }
-    };
+    }
 }
 
 token(action(some(stringToken(" ")), t => { return {whitespace: true, length: t.length}; }));

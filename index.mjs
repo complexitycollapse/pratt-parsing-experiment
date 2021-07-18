@@ -1,5 +1,7 @@
 import { lexer } from "./lexer.mjs";
 
+var symbols = {};
+
 function writeTokens(lexer) {
     var result = document.getElementById("result");
     result.value = "";

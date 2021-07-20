@@ -153,7 +153,7 @@ export function lexer() {
             index = tokenResult.index;
             return tokenResult.token;
         }
-        throw [index, "Invalid token " + text[index]];
+        throw "Error at " + index + ": " + "Invalid token " + text[index];
     }
 }
 

@@ -13,7 +13,7 @@ function writeTokens(lexer) {
         }
     }
     catch (e) {
-        result.value = "Error at " + e[0] + ": " + e[1];
+        result.value = e;
     }
 }
 

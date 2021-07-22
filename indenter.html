@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #codeToParse {
+                width: 80%;
+                height: 700px;
+                display: float-left;
+            }
+
+            #result {
+                width: 100%;
+                height: 300px;
+            }
+
+            #parse {
+                width: 100px;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <label for="codeToParse">Code to parse</label>
+        <p></p>
+        <textarea id="codeToParse"></textarea>
+        <button id="parse">Parse</button>
+        <p></p>
+        <label for="result">Result</label>
+        <p></p>
+        <textarea id="result"></textarea>
+        <script src="lexer.mjs" type="module"></script>
+        <script src="indenter.mjs" type="module"></script>
+        <script src="indenter-test.mjs" type="module"></script>
+    </body>
+</html>

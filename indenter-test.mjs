@@ -1,5 +1,5 @@
 import { lexer } from "./lexer.mjs";
-import { indenter, lineFormer } from "./indenter.mjs"
+import { indenter } from "./indenter.mjs"
 
 var symbols = {};
 
@@ -36,4 +36,4 @@ function stringifyToken(token) {
     return token;
 }
 
-document.getElementById("parse").addEventListener("click", () => writeTokens(indenter(lineFormer(lexer()))));
+document.getElementById("parse").addEventListener("click", () => writeTokens(indenter(lexer())));

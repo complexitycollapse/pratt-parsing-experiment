@@ -1,4 +1,4 @@
-export function lineFormer(lexer) {
+function lineFormer(lexer) {
     let eof = undefined;
     return function lf() {
         if (eof) return eof;
@@ -25,7 +25,7 @@ export function lineFormer(lexer) {
     };
 }
 
-export function indenter(lineFormer) {
+function indentProcessor(lineFormer) {
     let indentStack = [];
     let lineNumber = 0;
 
@@ -77,4 +77,26 @@ export function indenter(lineFormer) {
             }
         }
     };
+}
+
+function lineSerializer(indentProcessor) {
+    var line = indentProcessor();
+    return function serialize() {
+        if (line.sof || line.eof) {
+            let result = line;
+            line = indentProcessor();
+            return result;
+        }
+
+        if (line.length == 0) {
+            line = indentProcessor();
+            return serialize();
+        }
+
+        return line.splice(0, 1);
+    };
+}
+
+export function indenter(lexer) {
+    return lineSerializer(indentProcessor(lineFormer(lexer())));
 }
